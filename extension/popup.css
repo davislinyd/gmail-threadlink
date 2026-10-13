@@ -1,0 +1,58 @@
+body {
+  width: 22rem;
+  margin: 0;
+  padding: 1rem;
+  background: canvas;
+  color: canvastext;
+  font: 14px/1.4 system-ui, sans-serif;
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+#message {
+  margin: 0 0 0.75rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 0.75rem;
+  padding: 0.5rem;
+  resize: none;
+  border: 1px solid color-mix(in srgb, canvastext 25%, transparent);
+  border-radius: 6px;
+  background: field;
+  color: fieldtext;
+  font: 12px/1.45 ui-monospace, monospace;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid color-mix(in srgb, canvastext 30%, transparent);
+  border-radius: 6px;
+  background: buttonface;
+  color: buttontext;
+  font: inherit;
+}
+
+#copy {
+  background: canvastext;
+  color: canvas;
+  border-color: canvastext;
+}

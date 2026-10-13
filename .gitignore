@@ -1,0 +1,5 @@
+.env
+.clasp.json
+.ai/
+.DS_Store
+node_modules/

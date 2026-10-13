@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <title>Gmail Goggles</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <h1>Gmail Goggles</h1>
+    <p id="message" hidden></p>
+    <div id="result" hidden>
+      <label for="permalink">永久連結</label>
+      <textarea id="permalink" readonly rows="4" spellcheck="false"></textarea>
+      <div class="actions">
+        <button type="button" id="copy">複製</button>
+        <button type="button" id="open">開啟</button>
+      </div>
+    </div>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
