@@ -1,6 +1,6 @@
-const BUTTON_CLASS = 'gmail-goggles-copy';
-const SUBJECT_CLASS = 'gmail-goggles-subject';
-const TOAST_CLASS = 'gmail-goggles-toast';
+const BUTTON_CLASS = 'gmail-threadlink-copy';
+const SUBJECT_CLASS = 'gmail-threadlink-subject';
+const TOAST_CLASS = 'gmail-threadlink-toast';
 const LINK_PATH = 'M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z';
 const CHECK_PATH = 'M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z';
 const buttonTimers = new WeakMap();
@@ -113,8 +113,8 @@ function createButton(heading) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = BUTTON_CLASS;
-  button.setAttribute('aria-label', '複製這封郵件的永久連結');
-  button.append(svgIcon(LINK_PATH, 'gmail-goggles-link'), svgIcon(CHECK_PATH, 'gmail-goggles-check'));
+  button.setAttribute('aria-label', "Copy this email's permalink");
+  button.append(svgIcon(LINK_PATH, 'gmail-threadlink-link'), svgIcon(CHECK_PATH, 'gmail-threadlink-check'));
   button.addEventListener('click', async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -124,20 +124,20 @@ function createButton(heading) {
       heading.getAttribute('data-thread-perm-id'),
     );
     if (!permalink || !(await copyText(permalink))) {
-      showToast('無法複製。');
+      showToast("Couldn't copy.");
       return;
     }
     markCopied(button);
-    showToast('已複製連結。');
+    showToast('Link copied.');
   });
   return button;
 }
 
 function messageFor(result, copied) {
   if (!result.ok) {
-    return result.reason === 'not-gmail' ? '請先打開 Gmail。' : '請先打開一封郵件。';
+    return result.reason === 'not-gmail' ? 'Open Gmail first.' : 'Open an email first.';
   }
-  return copied ? '已複製連結。' : '無法複製。';
+  return copied ? 'Link copied.' : "Couldn't copy.";
 }
 
 async function copyShortcut() {
@@ -248,22 +248,22 @@ async function permalinkForEmail(email) {
 async function copyEmail(email) {
   const permalink = await permalinkForEmail(email);
   const copied = permalink ? await copyText(permalink) : false;
-  showToast(copied ? '已複製連結。' : '無法複製。');
+  showToast(copied ? 'Link copied.' : "Couldn't copy.");
 }
 
 async function openEmail(email) {
   const permalink = await permalinkForEmail(email);
   if (!permalink) {
-    showToast('無法開啟。');
+    showToast("Couldn't open.");
     return;
   }
   try {
     const response = await chrome.runtime.sendMessage({ type: 'open-permalink', url: permalink });
     if (!response?.ok) {
-      showToast('無法開啟。');
+      showToast("Couldn't open.");
     }
   } catch {
-    showToast('無法開啟。');
+    showToast("Couldn't open.");
   }
 }
 
@@ -271,7 +271,7 @@ function createContextMenuItem(sample, labelText, action) {
   const item = document.createElement(sample.tagName.toLowerCase());
   item.className = sample.className;
   item.setAttribute('role', 'menuitem');
-  item.setAttribute('data-gmail-goggles-menu', '');
+  item.setAttribute('data-gmail-threadlink-menu', '');
   const labelSample = sample.querySelector('.J-N-Jz');
   if (labelSample) {
     const label = document.createElement(labelSample.tagName.toLowerCase());
@@ -290,7 +290,7 @@ function createContextMenuItem(sample, labelText, action) {
 }
 
 function addContextMenuItem(menu, email) {
-  if (menu.querySelector('[data-gmail-goggles-menu]')) {
+  if (!menu.isConnected || menu.querySelector('[data-gmail-threadlink-menu]')) {
     return;
   }
   const sample = menu.querySelector('[role="menuitem"]');
@@ -302,10 +302,10 @@ function addContextMenuItem(menu, email) {
     menu.style.display = 'none';
   };
   sample.parentElement.append(
-    createContextMenuItem(sample, '複製連結', () => {
+    createContextMenuItem(sample, 'Copy link to this email', () => {
       copyEmail(email).finally(closeMenu);
     }),
-    createContextMenuItem(sample, '在新分頁開啟', () => {
+    createContextMenuItem(sample, 'Open this email in a new tab', () => {
       openEmail(email).finally(closeMenu);
     }),
   );
@@ -349,7 +349,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
   loadPermalink()
     .then(() => copyShortcut())
-    .then(sendResponse, () => sendResponse({ ok: false, message: '無法複製。' }));
+    .then(sendResponse, () => sendResponse({ ok: false, message: "Couldn't copy." }));
   return true;
 });
 

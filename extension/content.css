@@ -1,4 +1,4 @@
-.gmail-goggles-subject {
+.gmail-threadlink-subject {
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -9,11 +9,11 @@
   vertical-align: baseline;
 }
 
-.gmail-goggles-subject > h2 {
+.gmail-threadlink-subject > h2 {
   min-width: 0;
 }
 
-.gmail-goggles-copy {
+.gmail-threadlink-copy {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -33,32 +33,32 @@
   cursor: pointer;
 }
 
-.gmail-goggles-copy:hover {
+.gmail-threadlink-copy:hover {
   background: light-dark(rgb(32 33 36 / 8%), rgb(232 234 237 / 12%));
 }
 
-.gmail-goggles-copy:focus-visible {
+.gmail-threadlink-copy:focus-visible {
   outline: 2px solid light-dark(#1a73e8, #8ab4f8);
   outline-offset: 1px;
 }
 
-.gmail-goggles-copy .gmail-goggles-check {
+.gmail-threadlink-copy .gmail-threadlink-check {
   display: none;
 }
 
-.gmail-goggles-copy.is-copied {
+.gmail-threadlink-copy.is-copied {
   color: light-dark(#188038, #81c995);
 }
 
-.gmail-goggles-copy.is-copied .gmail-goggles-link {
+.gmail-threadlink-copy.is-copied .gmail-threadlink-link {
   display: none;
 }
 
-.gmail-goggles-copy.is-copied .gmail-goggles-check {
+.gmail-threadlink-copy.is-copied .gmail-threadlink-check {
   display: block;
 }
 
-.gmail-goggles-toast {
+.gmail-threadlink-toast {
   position: fixed;
   z-index: 2147483647;
   right: 16px;
@@ -71,10 +71,10 @@
   font: 13px/1.4 system-ui, sans-serif;
 }
 
-.gmail-goggles-toast[hidden] {
+.gmail-threadlink-toast[hidden] {
   display: none;
 }
 
-[data-gmail-goggles-menu]:hover {
+[data-gmail-threadlink-menu]:hover {
   background: light-dark(#eeeeee, #3c4043);
 }

@@ -1,22 +1,22 @@
-# Gmail Goggles extension
+# Gmail ThreadLink extension
 
-在 Gmail 網頁打開郵件後，可以從主旨右側的按鈕、快捷鍵或工具列圖示複製該 thread 的永久連結。
+After you open a message in Gmail on the web, copy that thread's permalink from the button beside the subject, the keyboard shortcut, or the toolbar icon.
 
-## 載入
+## Load
 
-1. 開啟 `chrome://extensions`。
-2. 開啟右上角「開發人員模式」。
-3. 選擇「載入未封裝項目」。
-4. 選這個 `extension` 目錄。
+1. Open `chrome://extensions`.
+2. Turn on Developer mode in the top right.
+3. Choose Load unpacked.
+4. Select this `extension` directory.
 
-## 手動檢查
+## Manual checks
 
-1. 打開 Gmail 的一封郵件，按擴充功能圖示。應看到含有 `#all/` 與 thread 識別碼的連結。按「複製」，貼上後確認內容。按「開啟」，新分頁應打開同一串郵件。
-2. 停在收件匣列表、沒有打開郵件時，應顯示「請先打開一封郵件。」
-3. 目前分頁不是 Gmail 時，應顯示「請先打開 Gmail。」
-4. 若使用多個 Google 帳號，連結中的 `/u/0/`、`/u/1/` 應與目前分頁相同。
-5. 在彈出視窗（網址含 `/popout` 與 `th=#thread-f:`）開啟郵件時，也應顯示 `#all/` 連結。
-6. 分割畫面時網址可能停在 `#inbox`。下方或右方已打開郵件時，仍應顯示 `#all/` 連結。沒有打開郵件時，仍顯示「請先打開一封郵件。」
-7. 已打開的郵件主旨右側有一個連結圖示。按下後剪貼簿是該郵件的 `#all/` 連結，圖示短暫變成勾勾，右下角顯示「已複製連結。」。
-8. 預設快捷鍵是 Option+C。頁面右下角應顯示「已複製連結。」。可在 `chrome://extensions/shortcuts` 修改。沒有打開郵件時不應複製到別封郵件的連結。
-9. 在信件列或已打開的信件上按右鍵，Gmail 自己的選單最後有「複製連結」和「在新分頁開啟」。這不會出現在 Chrome 的一般右鍵選單。「複製連結」按下後右下角顯示「已複製連結。」。「在新分頁開啟」會用該郵件的 `#all/` 連結開一個新分頁。
+1. Open a Gmail message and click the extension icon. You should see a link that contains `#all/` and the thread id. Click Copy, paste, and confirm the text. Click Open. A new tab should open the same thread.
+2. Stay on the inbox list with no message open. The popup should say "Open an email first."
+3. On a tab that is not Gmail, the popup should say "Open Gmail first."
+4. With more than one Google account, `/u/0/` or `/u/1/` in the link should match the current tab.
+5. When a message is open in a popout (the URL contains `/popout` and `th=#thread-f:`), the popup should still show an `#all/` link.
+6. In split view the URL can stay on `#inbox`. With a message open below or to the right, the popup should still show an `#all/` link. With no message open, it should still say "Open an email first."
+7. An open message has a link icon to the right of the subject. After you click it, the clipboard holds that message's `#all/` link, the icon briefly becomes a check mark, and the lower right says "Link copied."
+8. The default shortcut is Option+C. The lower right of the page should say "Link copied." Change the shortcut at `chrome://extensions/shortcuts`. With no message open, it must not copy another message's link.
+9. Right-click a message row or an open message. Gmail's own menu ends with "Copy link to this email" and "Open this email in a new tab". These items do not appear in Chrome's normal context menu. After "Copy link to this email", the lower right says "Link copied." "Open this email in a new tab" opens that message's `#all/` link in a new tab.

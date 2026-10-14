@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Gmail Goggles</title>
+    <title>Gmail ThreadLink</title>
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
-    <h1>Gmail Goggles</h1>
+    <h1>Gmail ThreadLink</h1>
     <p id="message" hidden></p>
     <div id="result" hidden>
-      <label for="permalink">永久連結</label>
+      <label for="permalink">Permalink</label>
       <textarea id="permalink" readonly rows="4" spellcheck="false"></textarea>
       <div class="actions">
-        <button type="button" id="copy">複製</button>
-        <button type="button" id="open">開啟</button>
+        <button type="button" id="copy">Copy</button>
+        <button type="button" id="open">Open</button>
       </div>
     </div>
     <script type="module" src="popup.js"></script>

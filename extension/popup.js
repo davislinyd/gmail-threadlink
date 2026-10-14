@@ -26,12 +26,12 @@ copyButton.addEventListener('click', async () => {
   }
   try {
     await navigator.clipboard.writeText(permalink);
-    copyButton.textContent = '已複製';
+    copyButton.textContent = 'Copied';
     message.hidden = true;
   } catch {
     field.focus();
     field.select();
-    showMessage('無法複製，請手動選取連結。');
+    showMessage("Couldn't copy. Select the link yourself.");
   }
 });
 
@@ -115,31 +115,31 @@ openButton.addEventListener('click', async () => {
   try {
     await chrome.tabs.create({ url: permalink });
   } catch {
-    showMessage('無法開啟連結。');
+    showMessage("Couldn't open the link.");
   }
 });
 
 try {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab?.url) {
-    showMessage('無法讀取分頁網址，請重新開啟這個視窗。');
+    showMessage("Couldn't read this tab. Reopen the popup.");
   } else {
     const parsed = parseGmailPermalink(tab.url);
     if (parsed.ok) {
       showPermalink(parsed.permalink);
     } else if (parsed.reason === 'not-gmail') {
-      showMessage('請先打開 Gmail。');
+      showMessage('Open Gmail first.');
     } else if (parsed.reason === 'no-thread') {
       const fromPage = await permalinkFromOpenMessage(tab);
       if (fromPage) {
         showPermalink(fromPage);
       } else {
-        showMessage('請先打開一封郵件。');
+        showMessage('Open an email first.');
       }
     } else {
-      showMessage('無法讀取分頁網址，請重新開啟這個視窗。');
+      showMessage("Couldn't read this tab. Reopen the popup.");
     }
   }
 } catch {
-  showMessage('無法讀取分頁網址，請重新開啟這個視窗。');
+  showMessage("Couldn't read this tab. Reopen the popup.");
 }

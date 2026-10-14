@@ -1,54 +1,54 @@
-# Gmail Goggles
+# Gmail ThreadLink
 
-複製你正在看的 Gmail 信件永久連結。連結是 Gmail 的 thread permalink，只有能進入該信箱的人打得開。
+Copy the permalink of the Gmail message you are reading. The link is Gmail's thread permalink. Only people who can open that mailbox can open it.
 
-這個 repository 有兩種用法：
+This repository has two uses:
 
-- `extension/`：Chrome 擴充功能。在主旨旁、快捷鍵，以及 Gmail 自己的右鍵選單裡複製或開新分頁。
-- 根目錄的 `Code.gs`：Google Workspace 外掛，在 Gmail 側邊欄顯示同一條連結。
+- `extension/`: a Chrome extension. Copy or open the link from beside the subject, a keyboard shortcut, or Gmail's own context menu.
+- `Code.gs` at the repository root: a Google Workspace add-on that shows the same link in the Gmail side panel.
 
-## Chrome 擴充功能
+## Chrome extension
 
-在 Gmail 網頁打開一封郵件後可以：
+After you open a message in Gmail on the web:
 
-- 按主旨右側的連結圖示複製連結。
-- 按 Option+C（其他平台為 Alt+C）複製連結。若快捷鍵沒有生效，到 `chrome://extensions/shortcuts` 設定。
-- 在信件列或已打開的信件上按右鍵。Gmail 自己的選單最後有「複製連結」與「在新分頁開啟」。這兩項不會出現在 Chrome 的一般右鍵選單。
-- 按工具列圖示，查看連結、複製，或在新分頁開啟。
+- Click the link icon to the right of the subject to copy the link.
+- Press Option+C (Alt+C on other platforms) to copy the link. If the shortcut does not work, set it at `chrome://extensions/shortcuts`.
+- Right-click a message row or an open message. Gmail's own menu ends with "Copy link to this email" and "Open this email in a new tab". These items do not appear in Chrome's normal context menu.
+- Click the toolbar icon to view the link, copy it, or open it in a new tab.
 
-分割畫面時網址可能停在 `#inbox`。擴充功能改從已打開郵件的主旨，或你右鍵點到的那一列，取得 thread id。彈出視窗網址裡的 `#thread-f:` 十進位編號會轉成 `#all/` 連結。
+In split view the URL can stay on `#inbox`. The extension reads the thread id from the open message's subject, or from the row you right-clicked. A decimal id in a popout URL (`#thread-f:`) is converted into an `#all/` link.
 
-### 安裝
+### Install
 
-1. 開啟 `chrome://extensions`。
-2. 開啟「開發人員模式」。
-3. 選擇「載入未封裝項目」。
-4. 選這個 repository 的 `extension` 目錄。
+1. Open `chrome://extensions`.
+2. Turn on Developer mode.
+3. Choose Load unpacked.
+4. Select this repository's `extension` directory.
 
-擴充功能只在 `https://mail.google.com/` 運作。它在本機讀取網址與主旨上的 thread id，用來組出連結；不會把郵件內容送到其他伺服器。
+The extension runs only on `https://mail.google.com/`. It reads the thread id from the page URL and the subject on your machine and builds the link there. It does not send message content to another server.
 
-### 開發
+### Development
 
 ```bash
 node --test extension/permalink.test.mjs
 ```
 
-## Workspace 外掛
+## Workspace add-on
 
-外掛在開啟郵件時出現在 Gmail 側邊欄，顯示可選取的 permalink，並提供在 Gmail 開啟的按鈕。permalink 由 `GmailApp` 的 `getPermalink()` 產生，不是自行拼接的公開網址。
+When you open a message, the add-on appears in the Gmail side panel. It shows a selectable permalink and an Open in Gmail button. `GmailApp.getPermalink()` produces the permalink, in the form `https://mail.google.com/mail/u/0/popout?ver=…&cat=…&qid=…`. Opening the same thread again within 6 hours reuses the permalink fetched last time.
 
-本機用 [clasp](https://github.com/google/clasp) 推送 `Code.gs` 與 `appsscript.json`：
+Push `Code.gs` and `appsscript.json` from this machine with [clasp](https://github.com/google/clasp):
 
 ```bash
 npm install -g @google/clasp
 clasp login
-clasp create --type standalone --title "Gmail Goggles"
+clasp create --type standalone --title "Gmail ThreadLink"
 clasp push
 ```
 
-`.clasp.json` 含有 Script ID，已列入 `.gitignore`，不會出現在這個 repository。`.claspignore` 會避免 `clasp push` 把 `extension/` 推進 Apps Script。
+`.clasp.json` holds the Script ID and is listed in `.gitignore`, so it is not in this repository. `.claspignore` keeps `clasp push` from uploading `extension/` to Apps Script.
 
-OAuth scope 只有：
+The OAuth scopes are:
 
 - `https://www.googleapis.com/auth/gmail.addons.execute`
 - `https://www.googleapis.com/auth/gmail.addons.current.message.readonly`
