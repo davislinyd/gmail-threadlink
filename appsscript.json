@@ -9,8 +9,8 @@
   ],
   "addOns": {
     "common": {
-      "name": "Gmail Goggles",
-      "logoUrl": "https://www.gstatic.com/images/icons/material/system/1x/science_black_24dp.png"
+      "name": "Gmail ThreadLink",
+      "logoUrl": "https://cdn.jsdelivr.net/gh/davislinyd/gmail-threadlink@main/extension/icons/icon-128.png"
     },
     "gmail": {
       "contextualTriggers": [
